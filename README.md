@@ -30,8 +30,7 @@ has_many :purchases
 |freight_money_id | integer | null: false |
 | states_id       | integer | null: false |
 | area_id         | integer | null: false |
-|  image          | Activstrage | null: false |
-| user_id         | references | null: false,foreign_key: true |
+| user            | references | null: false,foreign_key: true |
 
 ### Association
 has_one :purchases
@@ -43,12 +42,12 @@ belongs_to :users
 | Column        | Type   | Options     |
 | --------      | ------ | ----------- |
 | postcode      | string | null: false |
-| prefecture_id | text   | null: false |
 | city          | string | null: false |
 |  block        | string | null: false |
 |   building    | string |             |
 | tell_num      | string | null: false |
-| Purchases_id  | references | null: false,foreign_key: true |
+| area_id       | references | null: false,foreign_key: true |
+| Purchases     | references | null: false,foreign_key: true |
 
 ### Association
 belongs_to :purchases
@@ -57,8 +56,8 @@ belongs_to :purchases
 
 | Column        | Type   | Options     |
 | --------      | ------ | ----------- |
-| user_id       | references | null: false,foreign_key: true |
-| item_id       | references | null: false,foreign_key: true |
+| user          | references | null: false,foreign_key: true |
+| item          | references | null: false,foreign_key: true |
 
 ### Association
 belongs_to :items

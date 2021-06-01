@@ -1,24 +1,64 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Users
 
-Things you may want to cover:
+| Column        | Type   | Options     |
+| --------      | ------ | ----------- |
+| email         | string | null: false,unique: true |
+| encrypted_password | string | null: false |
+| name          | string | null: false |
+| first_name    | string | null: false |
+| last_name     | string | null: false |
+|first_name_kana| string | null: false |
+|last_name_kana | string | null: false |
+| birth         | date   | null: false |
 
-* Ruby version
+### Association
+has_many :items
+has_many :purchases
 
-* System dependencies
 
-* Configuration
+## Items
 
-* Database creation
+| Column        | Type   | Options     |
+| --------      | ------ | ----------- |
+| item_name       | string | null: false |
+| item_info       | text   | null: false |
+| price           | integer | null: false |
+|  day_id         | integer | null: false |
+|category_name_id | integer | null: false |
+|freight_money_id | integer | null: false |
+| states_id       | integer | null: false |
+| area_id         | integer | null: false |
+| user            | references | null: false,foreign_key: true |
 
-* Database initialization
+### Association
+has_one :purchase
+belongs_to :user
 
-* How to run the test suite
+## informations
 
-* Services (job queues, cache servers, search engines, etc.)
+| Column        | Type   | Options     |
+| --------      | ------ | ----------- |
+| postcode      | string | null: false |
+| city          | string | null: false |
+|  block        | string | null: false |
+|   building    | string |             |
+| tell_num      | string | null: false |
+| area_id       | integer | null: false |
+| purchases     | references | null: false,foreign_key: true |
 
-* Deployment instructions
+### Association
+belongs_to :purchase
 
-* ...
+## Purchases
+
+| Column        | Type   | Options     |
+| --------      | ------ | ----------- |
+| user          | references | null: false,foreign_key: true |
+| item          | references | null: false,foreign_key: true |
+
+### Association
+belongs_to :item
+belongs_to :user
+has_one :information

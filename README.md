@@ -24,8 +24,8 @@ has_many :purchases
 | --------      | ------ | ----------- |
 | item_name       | string | null: false |
 | item_info       | text   | null: false |
-| place           | integer | null: false |
-|  day            | date | null: false |
+| price           | integer | null: false |
+|  day_id         | integer | null: false |
 |category_name_id | integer | null: false |
 |freight_money_id | integer | null: false |
 | states_id       | integer | null: false |
@@ -33,9 +33,8 @@ has_many :purchases
 | user            | references | null: false,foreign_key: true |
 
 ### Association
-has_one :purchases
-has_one :informations
-belongs_to :users
+has_one :purchase
+belongs_to :user
 
 ## informations
 
@@ -46,11 +45,11 @@ belongs_to :users
 |  block        | string | null: false |
 |   building    | string |             |
 | tell_num      | string | null: false |
-| area_id       | references | null: false,foreign_key: true |
-| Purchases     | references | null: false,foreign_key: true |
+| area_id       | integer | null: false |
+| purchases     | references | null: false,foreign_key: true |
 
 ### Association
-belongs_to :purchases
+belongs_to :purchase
 
 ## Purchases
 
@@ -60,6 +59,6 @@ belongs_to :purchases
 | item          | references | null: false,foreign_key: true |
 
 ### Association
-belongs_to :items
-belongs_to :users
-has_one :informations
+belongs_to :item
+belongs_to :user
+has_one :information

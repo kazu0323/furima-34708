@@ -99,9 +99,13 @@ RSpec.describe User, type: :model do
     end
     it "ユーザー本名は、全角（漢字・ひらがな・カタカナ）での入力が必須であること" do
       @user.last_name = "a"
-      @user.first_name = "a"
       @user.valid?
       expect(@user.errors.full_messages).to include("Last name は、全角（漢字・ひらがな・カタカナ）での入力が必須")
+    end
+    it "ユーザー本名は、全角（漢字・ひらがな・カタカナ）での入力が必須であること" do
+      @user.first_name = "a"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("First name は、全角（漢字・ひらがな・カタカナ）での入力が必須")
     end
     it "ユーザー本名のフリガナは、名字と名前がそれぞれ必須であること" do
       @user.last_name_kana = ""
@@ -124,11 +128,15 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("First name kana 全角（カタカナ）での入力が必須")
     end
     it "ユーザー本名のフリガナはバリデーションを満たさない場合は登録されない" do
-      @user.last_name_kana = "tarou"
       @user.first_name_kana = "tarou"
       @user.valid?
-      expect(@user.errors.full_messages).to include("Last name kana 全角（カタカナ）での入力が必須", "First name kana 全角（カタカナ）での入力が必須")
+      expect(@user.errors.full_messages).to include("First name kana 全角（カタカナ）での入力が必須")
       end
+      it "ユーザー本名のフリガナはバリデーションを満たさない場合は登録されない" do
+        @user.last_name_kana = "tarou"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Last name kana 全角（カタカナ）での入力が必須")
+        end
 
     it "生年月日が必須であること" do
       @user.birth = ""

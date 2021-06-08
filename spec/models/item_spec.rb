@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
   before do
-    @user = FactoryBot.build(:user)
+    @user = FactoryBot.create(:user)
     @item = FactoryBot.build(:item)
     @item.image = fixture_file_upload('app/assets/images/comment.png')
   end
@@ -12,11 +12,11 @@ RSpec.describe Item, type: :model do
       expect(@item).to be_valid
     end
     it "販売価格は、¥300~¥9,999,999の間のみ保存可能" do
-      @item.price = "400"
+      @item.price = 400
       expect(@item).to be_valid
     end
     it "販売価格は半角数字のみ保存可能" do
-      @item.price = "400"
+      @item.price = 400
       expect(@item).to be_valid
     end
    end
@@ -48,27 +48,27 @@ RSpec.describe Item, type: :model do
       expect(@item.errors.full_messages).to include ("Item info can't be blank")
     end
     it "カテゴリーの情報がない場合出品されない" do
-      @item.category_name_id = "1"
+      @item.category_name_id = 1
       @item.valid?
       expect(@item.errors.full_messages).to include ("Category name must be other than 1")
     end
     it "商品の状態についての情報がない場合出品されない" do
-      @item.states_id = "1"
+      @item.states_id = 1
       @item.valid?
       expect(@item.errors.full_messages).to include ("States must be other than 1")
     end
     it "配送料の負担についての情報がない場合出品されない" do
-      @item.freight_money_id = "1"
+      @item.freight_money_id = 1
       @item.valid?
       expect(@item.errors.full_messages).to include ("Freight money must be other than 1")
     end
     it "発送元の地域についての情報がない場合出品されない" do
-      @item.area_id = "1"
+      @item.area_id = 1
       @item.valid?
       expect(@item.errors.full_messages).to include ("Area must be other than 1")
     end
     it "発送までの日数についての情報がない場合出品されない" do
-      @item.day_id = "1"
+      @item.day_id = 1
       @item.valid?
       expect(@item.errors.full_messages).to include ("Day must be other than 1")
     end

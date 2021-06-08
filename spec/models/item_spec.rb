@@ -25,7 +25,7 @@ RSpec.describe Item, type: :model do
     it "商品画像がない場合出品されない" do
       @item.image = nil
       @item.valid?
-      #expect(@item.errors.full_messages).to include
+      expect(@item.errors.full_messages).to include ("Image can't be blank")
     end
     it "販売価格は、¥300~¥9,999,999以外は保存できない" do
       @item.price = "200"

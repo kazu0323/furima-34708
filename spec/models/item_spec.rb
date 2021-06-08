@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
   before do
-    @user = FactoryBot.create(:user)
     @item = FactoryBot.build(:item)
     @item.image = fixture_file_upload('app/assets/images/comment.png')
   end
@@ -27,10 +26,15 @@ RSpec.describe Item, type: :model do
       @item.valid?
       expect(@item.errors.full_messages).to include ("Image can't be blank")
     end
-    it "販売価格は、¥300~¥9,999,999以外は保存できない" do
-      @item.price = "200"
+    it "商品価格が299円以下では出品できない" do
+      @item.price = 299
       @item.valid?
       expect(@item.errors.full_messages).to include ("Price must be greater than or equal to 300")
+    end
+    it "商品価格が10_000_000円以上では出品できない" do
+      @item.price = 10_000_000
+      @item.valid?
+      expect(@item.errors.full_messages).to include ("Price must be less than or equal to 9999999")
     end
     it "販売価格は全角数字は保存不可能" do
       @item.price = "４００"

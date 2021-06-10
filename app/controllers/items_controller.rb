@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
   def index
   @items = Item.all.order(id: "DESC")
   end
+
   def new
     @item = Item.new
   end
@@ -14,6 +15,10 @@ def create
   else
     render :new
   end
+end
+
+def show
+  @item = Item.find(params[:id])
 end
 
   private

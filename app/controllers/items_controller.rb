@@ -21,6 +21,19 @@ def show
   @item = Item.find(params[:id])
 end
 
+def edit
+  @item = Item.find(params[:id])
+end
+
+def update
+  @item = Item.find(params[:id])
+  if @item.update(item_params)
+    redirect_to item_path(@item)
+  else
+    render :edit
+  end
+end
+
   private
   def item_params
     params.require(:item).permit(:image, :item_name, :item_info, :price, :day_id, :category_name_id, :freight_money_id, :states_id, :area_id).merge(user_id: current_user.id)

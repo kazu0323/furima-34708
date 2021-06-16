@@ -5,10 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
     has_many :items
+    has_many :purchases
     with_options presence: true do
       validates :name
       validates :birth
-      validates :name
 
       with_options format: { with: /\A[ぁ-んァ-ン一-龥]+\z/, message: "は、全角（漢字・ひらがな・カタカナ）での入力が必須" } do
         validates :last_name

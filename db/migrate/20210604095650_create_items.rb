@@ -11,6 +11,7 @@ class CreateItems < ActiveRecord::Migration[6.0]
       t.integer :states_id,          null: false
       t.integer :area_id,            null: false
       t.references  :user,           null: false,foreign_key: true
+      t.references  :purchase,           null: false,foreign_key: true
     end
   end
 end

@@ -1,4 +1,4 @@
-class PurchasesController < ApplicationController
+class OrdersController < ApplicationController
   before_action :set_item
   def index
     @purchase_information = PurchaseInformation.new
@@ -7,7 +7,6 @@ class PurchasesController < ApplicationController
 
   def create
     @purchase_information = PurchaseInformation.new(order_params)
-    binding.pry
     if @purchase_information.valid?
       @purchase_information.save
       redirect_to root_path

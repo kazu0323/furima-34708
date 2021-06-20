@@ -6,7 +6,7 @@ RSpec.describe Item, type: :model do
     @item.image = fixture_file_upload('app/assets/images/comment.png')
   end
   describe "商品出品機能" do
-   context "商品の出品ができる時" do
+    context "商品の出品ができる時" do
     it "全ての項目が入力されていれば登録できる" do
       expect(@item).to be_valid
     end

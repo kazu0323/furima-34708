@@ -1,7 +1,3 @@
-class Information < ApplicationRecord
-  belongs_to :purchase
-end
-
 class CreateInformations < ActiveRecord::Migration[6.0]
   def change
     create_table :informations do |t|

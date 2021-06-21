@@ -6,5 +6,6 @@ FactoryBot.define do
           building   {'横浜ビル'}
           tell_num   {'09033294923'}
           area_id    {2}
+          token {"tok_abcdefghijk00000000000000000"}
   end
 end

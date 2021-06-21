@@ -3,7 +3,10 @@ require 'rails_helper'
 RSpec.describe PurchaseInformation, type: :model do
   before do
     @info = FactoryBot.build(:purchase_information)
+    @item = FactoryBot.build(:item)
+    @item.image = fixture_file_upload('app/assets/images/comment.png')
   end
+
   describe "商品購入機能" do
     context "商品の出品ができる時" do
       it "配送先の情報として、郵便番号・都道府県・市区町村・番地・電話番号が必須であること" do
@@ -45,6 +48,11 @@ RSpec.describe PurchaseInformation, type: :model do
         @info.tell_num = "000000000000"
         @info.valid? 
         expect(@info.errors.full_messages).to include ("Tell num is invalid")
+      end
+      it "tokenが空では登録できないこと" do
+        @info.token = nil
+        @info.valid?
+        expect(@info.errors.full_messages).to include("Token can't be blank")
       end
     end
   end

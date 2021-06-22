@@ -36,10 +36,6 @@ def update
   end
 end
 
-def destroy
-  @item.destroy
-  redirect_to root_path
-end
   private
 
   def item_params
@@ -47,7 +43,7 @@ end
   end
 
   def move_to_edit
-    unless current_user.id == @item.user_id
+    unless current_user.id == @item.user_id && @item.purchase.nil?
       redirect_to action: :index
     end
   end

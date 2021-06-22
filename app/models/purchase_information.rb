@@ -6,8 +6,10 @@ class PurchaseInformation
     validates :city
     validates :token
     validates :block
+    validates :user_id
+    validates :item_id
     validates :postcode,format: {with: /\A\d{3}[-]\d{4}\z/ , message: "はハイフンを含めてください" }
-    validates :tell_num,format: { with: /\A\d{11}\z/  }
+    validates :tell_num,format: { with: /\A\d{10,11}\z/  }
     with_options numericality: { other_than: 1 , message: "を選択してください"} do
       validates :area_id
     end

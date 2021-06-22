@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2021_06_18_202916) do
     t.string "postcode", null: false
     t.string "city", null: false
     t.string "block", null: false
-    t.string "building", null: false
+    t.string "building"
     t.string "tell_num", null: false
     t.integer "area_id", null: false
     t.bigint "purchase_id", null: false

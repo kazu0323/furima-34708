@@ -3,12 +3,13 @@ require 'rails_helper'
 RSpec.describe PurchaseInformation, type: :model do
   before do
     @info = FactoryBot.build(:purchase_information)
-    @user = FactoryBot.create(:user)
+    @item_user = FactoryBot.create(:user)
+    @purchase_user = FactoryBot.create(:user)
     @item = FactoryBot.build(:item)
     @item.image = fixture_file_upload('app/assets/images/comment.png')
-    @item.user_id = @user.id
+    @item.user_id = @item_user.id
     @item.save
-    @info.user_id = @user.id
+    @info.user_id = @purchase_user.id
     @info.item_id = @item.id
     sleep 0.1
   end
@@ -24,18 +25,38 @@ RSpec.describe PurchaseInformation, type: :model do
       end
     end
     context "商品の出品ができない時" do
+      it "tokenが空では登録できないこと" do
+        @info.token = nil
+        @info.valid?
+        expect(@info.errors.full_messages).to include("Token can't be blank")
+      end
+      it "user_idが空では購入できないこと" do
+        @info.user_id = nil
+        @info.valid?
+        expect(@info.errors.full_messages).to include("User can't be blank")
+      end
+      it "item_idが空では購入できないこと" do
+        @info.item_id = nil
+        @info.valid?
+        expect(@info.errors.full_messages).to include("Item can't be blank")
+      end
       it "配送先の情報として、郵便番号が必須であること" do
         @info.postcode = ""
         @info.valid?
         expect(@info.errors.full_messages).to include ("Postcode can't be blank")
+      end
+      it "郵便番号の保存にはハイフンが必要であること" do
+        @info.postcode = "2540065"
+        @info.valid?
+        expect(@info.errors.full_messages).to include ("Postcode はハイフンを含めてください")
       end
       it "配送先の情報として、都道府県が必須であること" do
         @info.area_id = ""
         @info.valid?
         expect(@info.errors.full_messages).to include ("Area を選択してください")
       end
-      it "配送先の情報として、1以外でないと登録できないこと" do
-        @info.area_id = "1"
+      it "配送先の情報として、都道府県が1以外でないと登録できないこと" do
+        @info.area_id = 1
         @info.valid?
         expect(@info.errors.full_messages).to include ("Area を選択してください")
       end
@@ -59,20 +80,15 @@ RSpec.describe PurchaseInformation, type: :model do
         @info.valid?
         expect(@info.errors.full_messages).to include ("Tell num is invalid")
       end
-      it "郵便番号の保存にはハイフンが必要であること" do
-        @info.postcode = "2540065"
+      it "電話番号が全角数字だと登録できないこと" do
+        @info.tell_num = "０９０３３２９４９２３"
         @info.valid?
-        expect(@info.errors.full_messages).to include ("Postcode はハイフンを含めてください")
+        expect(@info.errors.full_messages).to include ("Tell num is invalid")
       end
       it "電話番号は12桁以上の数値では保存不可能" do
         @info.tell_num = "000000000000"
         @info.valid? 
         expect(@info.errors.full_messages).to include ("Tell num is invalid")
-      end
-      it "tokenが空では登録できないこと" do
-        @info.token = nil
-        @info.valid?
-        expect(@info.errors.full_messages).to include("Token can't be blank")
       end
     end
   end

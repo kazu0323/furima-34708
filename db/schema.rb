@@ -43,17 +43,6 @@ ActiveRecord::Schema.define(version: 2021_06_18_202916) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "informations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "postcode", null: false
-    t.string "city", null: false
-    t.string "block", null: false
-    t.string "building", null: false
-    t.string "tell_num", null: false
-    t.integer "area_id", null: false
-    t.bigint "purchase_id", null: false
-    t.index ["purchase_id"], name: "index_informations_on_purchase_id"
-  end
-
   create_table "infos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "postcode", null: false
     t.string "city", null: false
@@ -106,7 +95,6 @@ ActiveRecord::Schema.define(version: 2021_06_18_202916) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "informations", "purchases"
   add_foreign_key "infos", "purchases"
   add_foreign_key "items", "users"
   add_foreign_key "purchases", "items"

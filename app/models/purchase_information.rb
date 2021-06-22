@@ -1,6 +1,6 @@
 class PurchaseInformation
   include ActiveModel::Model
-  attr_accessor :postcode,:city,:block,:building,:tell_num,:area_id ,:user_id,:item_id,:purchase_id,:token
+  attr_accessor :postcode,:city,:block,:building,:tell_num,:area_id ,:user_id,:item_id,:token
 
   with_options presence: true do
     validates :city
